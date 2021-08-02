@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
-<title>TMC ºñ¹Ğ¹øÈ£ Ã£±â </title>
+<title>TMC ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° </title>
 
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
@@ -15,29 +15,51 @@
 
 <link rel="stylesheet" href="css/custom.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-<!-- xe¾ÆÀÌÄÜ -->
+<!-- xeì•„ì´ì½˜ -->
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
-<!-- ÆùÆ®  -->
-</head>
+<!-- í°íŠ¸  -->
+</head><script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){		
+		//ì´ë©”ì¼ ìœ íš¨ì„± ì–‘ì‹
+		var regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+		
+		$("#btn_send").on("click", function(){
+			if($('#inputname2').val() == ""){
+		          alert("ì´ë©”ì¼ì„ ì…ë ¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤");
+		          $('#inputname2').focus();
+		          return false;
+		      }
+				
+				//ì´ë©”ì¼ í˜•ì‹
+			if(!regex.test($("#inputname2").val())){
+				alert("ì´ë©”ì¼ í˜•ì‹ì— ë§ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”")
+				$('#inputname2').val("");
+				$('#inputname2').focus();
+				return false;
+			}
+		});
+});
+</script>
 </head>
 <body>
 
 <form action="findpwd" method="post">
-<!-- º»¹®³»¿ë ½ÃÀÛ   -->
+<!-- ë³¸ë¬¸ë‚´ìš© ì‹œì‘   -->
 <div class="con_wrap100">
   <div class="box_wrap" >
     <div class="   box_topst ">
      
-      <p class="  join_wrap m-auto"> <b>ºñ¹Ğ¹øÈ£°¡ ±â¾ï³ªÁö¾Ê³ª¿ä?</b><br>°¡ÀÔÇÏ½Å ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇÏ¼¼¿ä. </p>
+      <p class="  join_wrap m-auto"> <b>ë¹„ë°€ë²ˆí˜¸ê°€ ê¸°ì–µë‚˜ì§€ì•Šë‚˜ìš”?</b><br>ê°€ì…í•˜ì‹  ì´ë©”ì¼ì„ ì…ë ¥í•˜ì„¸ìš”. </p>
     </div>
 
     <div class=" join_wrap02 m-auto ">
       <div class="form-group mb-1">
-        <input type="text" class="form-control  " name="user_id" id="inputname2" placeholder="E-MAILÀ» ÀÔ·ÂÇÏ¼¼¿ä" required/>
+        <input type="text" class="form-control  " name="user_id" id="inputname2" placeholder="E-MAILì„ ì…ë ¥í•˜ì„¸ìš”" required/>
       </div>
        
       <div class="mt-3 ">
-        <button class="btn btn-lg btn-pup02 btn-block" type="submit"><b>ÀÌ¸ŞÀÏ È®ÀÎ</b></button>
+        <button class="btn btn-lg btn-pup02 btn-block" id = "btn_send" type="submit"><b>ì´ë©”ì¼ í™•ì¸</b></button>
       </div>
     
      </div>
@@ -45,10 +67,10 @@
 
 </div>
 </form>
-<!-- º»¹®³»¿ë ³¡  -->
+<!-- ë³¸ë¬¸ë‚´ìš© ë  -->
 
 
-<!-- ÇÏ´Ü -->
+<!-- í•˜ë‹¨ -->
 
 </body>
 </html>

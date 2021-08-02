@@ -44,7 +44,5 @@ test {
 	useJUnitPlatform()
 }
 
-bootJar{
-    archiveFileName = '-.jar'
-    archiveVersion = "0.0.1"
-}
+bootWar.enabled = false
+war.enabled = true

@@ -24,7 +24,7 @@
 <script>
 $(document).ready(function(){		
 	$('#boardList').click(function(){
-		location.replace('/notice_list')
+		location.replace('/TMC/notice_list')
 	});
 	
 	
@@ -39,7 +39,7 @@ $(document).ready(function(){
 	      
 	      data = JSON.stringify(data);
 	      $.ajax({
-	         url:"deleteFiles",
+	         url:"/TMC/deleteFiles",
 	         type:"POST",
 	         data:data,
 	         dataType:"json",
@@ -52,7 +52,7 @@ $(document).ready(function(){
 	            else
 	               alert("삭제되지 않았습니다.");
 	            
-	            location.href = "/notice_list";
+	            location.href = "/TMC/notice_list";
 	         },
 	         error:function(err){
 	            $("#txt_postContents").val("삭제 못함");
@@ -73,12 +73,13 @@ $(document).ready(function(){
 
 <div class="container px-0 pt-xl-2">
   <div>
-    <a href="/notice_list"  class="btn svg  p-0" alt="로고"><object  class="d-block logo" type="image/svg+xml" data="img/logo.svg"></object></a>
+    <a href="/TMC/notice_list"  class="btn svg  p-0" alt="로고">
+	<img src="${pageContext.request.contextPath}/img/logo.svg"></a>
   </div>
 
   <div>
-    <a href="/mypage"   class="topmenu_ico"> <i class="xi-profile-o xi-2x xi-x"></i> <span class="d-none d-lg-inline-block d-xl-inline-block">${user_id}</a><!-- 마이페이지 -->
-    <a href="/logout" class="topmenu_ico t_underline">Log out</a>
+    <a href="/TMC/mypage"   class="topmenu_ico"> <i class="xi-profile-o xi-2x xi-x"></i> <span class="d-none d-lg-inline-block d-xl-inline-block">${suser_id}</a><!-- 마이페이지 -->
+    <a href="/TMC/logout" class="topmenu_ico t_underline">Log out</a>
   </div>
 </div>
 <div class="container sub_tit01">
@@ -91,7 +92,7 @@ $(document).ready(function(){
 <!-- 본문내용 시작   -->
 <div class="container-lg mt-0  mt-md-5  con_wrap">
 
-<form id="frm_postInfo" action="notice_modify" method="post">
+<form id="frm_postInfo" action="/TMC/notice_modify" method="post">
 <div class="board_list">
 <!-- 			공지사항일경우
 <h3><span class="pup_st">[공지]</span> -->
@@ -118,12 +119,17 @@ $(document).ready(function(){
 
   <!-- 게시판 쓰기/수정 버튼등-->
 <div class="mt-5 mb-5 text-right pr-1">
-
+<c:choose>
+<c:when test="${suser_id eq result.user_id}">
 	<button type="button" class="btn btn-outline-dark" id="btn_modify">수정</button>
 	<button type="button" class="btn btn-dark" id="btn_delete">삭제</button>
-	<button type="button" class="btn btn-outline-dark" id="boardList">목록 가기</button>
+</c:when>
+<c:otherwise>
 	
+</c:otherwise>
+</c:choose>	
 	
+	<button type="button" class="btn btn-outline-dark" id="boardList">목록 가기</button>	
 </div>
 
 

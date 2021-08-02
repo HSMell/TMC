@@ -39,22 +39,12 @@ public class UserController {
 	    private PasswordEncoder passwordEncoder;
 	    
 	    
-	    //기본 홈
-	    @RequestMapping("/")
-		public String root() {
-	    		
-	    	return "redirect:/login";
-		}
 		//로그인 화면
 		@RequestMapping("/login")
 		public String loginScreen(UserDto vo, HttpServletRequest req, HttpSession session,Model model) {
 			
 			UserDto sessionVo = (UserDto)session.getAttribute("member");
 
-			Cookie[] loginCookie = req.getCookies();
-			Cookie[] cf = loginCookie;
-			
-			
 			if(sessionVo == null) {
 				System.out.println("/login :::::::::::::::::::::::::::::::::::::::::::::세션이 없습니다" );
 				return "/user/login";
@@ -62,7 +52,7 @@ public class UserController {
 				String user_id = sessionVo.getUser_id();
 				model.addAttribute("user_id", user_id);
 				System.out.println("세션있으니 마이페이로 감::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
-				return "/user/mypage";	
+				return "/user/notice_list";	
 			}
 		}
 
@@ -103,9 +93,10 @@ public class UserController {
 			
 		        }
 		    }
-			return "redirect:/login";
+			return "redirect:/notice_list";
 		}
 		
+		//기본 뺄것
 		//회원가입 화면
 		@RequestMapping("/signup")
 		public String signupScreen() {
@@ -123,6 +114,7 @@ public class UserController {
 			return "/user/login";
 		}
 		
+		//기본 뺄것
 		//비밀번호 찾기 화면
 		@RequestMapping("/findpw")
 		public String findpwScreen() {
@@ -189,9 +181,17 @@ public class UserController {
 		
 		// 로그아웃
 		@RequestMapping(value = "/logout", method = RequestMethod.GET)
-		public String logout(HttpSession session) throws Exception {
+		public String logout(HttpSession session, HttpServletResponse response) throws Exception {
 
-
+			Cookie loginCookie = new Cookie("loginCookie", null);
+			Cookie loginCookie2 = new Cookie("JSESSIONID", null);
+			loginCookie.setMaxAge(0); // 쿠키의 expiration 타임을 0으로 하여 없앤다.
+			loginCookie.setPath("/"); // 모든 경로에서 삭제 됬음을 알린다.
+			loginCookie2.setMaxAge(0); // 쿠키의 expiration 타임을 0으로 하여 없앤다.
+			loginCookie2.setPath("/"); // 모든 경로에서 삭제 됬음을 알린다.
+		    response.addCookie(loginCookie);
+		    response.addCookie(loginCookie2);
+			session.invalidate();
 			return "/user/login";
 		}
 

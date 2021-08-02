@@ -24,12 +24,13 @@
 	<!-- 폰트  -->
 <script>
 $(document).ready(function(){
-	
+	var data = $("#user_id").val();
+		
 	$('#btn_cancel').click(function(){
 		var result = confirm("작성한 내용이 저장되지 않습니다.");
 		
 		if(result) {
-			location.replace('/notice_list');
+			location.replace('/TMC/notice_list');
 		}
 	});	
 	
@@ -139,13 +140,13 @@ formAction = function(){
 	$.ajax({
 		type: "POST",
 		enctype: "multipart/form-data",
-		url: "requestupload",
+		url: "/TMC/requestupload",
 		data : formData,
 		processData: false,
 		contentType: false,
 		success: function (data) {			
 				alert("작성한 글을 등록 하였습니다.");
-				location.href = "/notice_list";			
+				location.href = "/TMC/notice_list";		
 		},
 		error: function (xhr, status, error) {
 			alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
@@ -156,6 +157,11 @@ formAction = function(){
 
 //유효성체크
 fnValidation = function(){
+	
+	if($('#user_id').val() == "") {
+		alert("글을 작성 하려면 로그인을 해주세요.");
+		return false;
+	}
 	
 	if($('#text_title').val() == "") {
 		alert("글 제목을 입력해 주세요.");
@@ -194,11 +200,12 @@ fnValidation = function(){
 
 					<div class="container px-0 pt-xl-2">
 						<div>
-						<a href="/notice_list"  class="btn svg  p-0" alt="로고"><object  class="d-block logo" type="image/svg+xml" data="img/logo.svg"></object></a>
+						<a href="/TMC/notice_list"  class="btn svg  p-0" alt="로고">
+						<img src="${pageContext.request.contextPath}/img/logo.svg"></a>
 						</div>
 						
-						<div><a href="/mypage"   class="   topmenu_ico"> <i class="xi-profile-o xi-2x xi-x"></i> <span class="d-none d-lg-inline-block d-xl-inline-block">${user_id}</a><!-- 마이페이지 -->
-						 <a href="/logout" class="topmenu_ico t_underline">Log out</a>
+						<div><a href="/TMC/mypage"   class="   topmenu_ico"> <i class="xi-profile-o xi-2x xi-x"></i> <span class="d-none d-lg-inline-block d-xl-inline-block" id="suser_id">${suser_id}</a><!-- 마이페이지 -->
+						 <a href="/TMC/logout" class="topmenu_ico t_underline">Log out</a>
 						</div>
 					</div>
 					<div class="container sub_tit01">Inspiration for the future society, <br>
@@ -211,7 +218,6 @@ creating a new future</div>
 <div class="container-lg mt-5   ">
 	<form name="fileForm" id="fileForm" class="image-upload-wrap">	
 	<input type="hidden" id="boardNum" name="boardNum" value="B0000001" />
-	<input type="hidden" id="user_id" name="user_id" value="tjdwns7761" />
 	<h2>게시판 글쓰기</h2>
 	<div class="board_w">
 		<div class="form-group  mt-3">

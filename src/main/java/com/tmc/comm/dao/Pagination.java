@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Pagination {
 	 /** 한 페이지당 게시글 수 **/
-    private int pageSize = 5;
+    private int pageSize = 10;
     
     /** 한 블럭(range)당 페이지 수 **/
     private int rangeSize = 5;
@@ -173,5 +173,10 @@ public class Pagination {
 
 	public void setNextPage(int nextPage) {
 		this.nextPage = nextPage;
+	}
+
+	public int getCurrentPageNo() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

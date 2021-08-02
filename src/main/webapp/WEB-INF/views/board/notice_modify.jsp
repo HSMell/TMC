@@ -37,7 +37,7 @@ $(document).ready(function(){
 	      var result = confirm("작성한 내용이 저장되지 않습니다.");
 	      
 	      if(result) {
-	         location.replace('/notice_list')
+	         location.replace('/TMC/notice_list')
 	      }
 	   });   
 	   
@@ -57,7 +57,7 @@ $(document).ready(function(){
 	//파일 현재 필드 숫자 totalCount랑 비교값
 	let fileCount = 0;
 	//해당 숫자를 수정하여 전체 업로드 갯수를 정한다.
-	const totalCount = 5;
+	const totalCount = 1;
 	//파일 현재 필드 크기 totalSize랑 비교값
 	let fileSize = 0;
 	//해당 숫자를 수정하여 전체 업로드 크기를 정한다.
@@ -162,13 +162,13 @@ $(document).ready(function(){
 	   $.ajax({
 	      type: "POST",
 	      enctype: "multipart/form-data",
-	      url: "reupload",
+	      url: "/TMC/reupload",
 	      data : formData,
 	      processData: false,
 	      contentType: false,
 	      success: function (data) {         
 	            alert("수정 완료");
-	            location.href = "/notice_list";         
+	            location.href = "/TMC/notice_list";         
 	      },
 	      error: function (xhr, status, error) {
 	         alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
@@ -220,11 +220,12 @@ $(document).ready(function(){
 
 					<div class="container px-0 pt-xl-2">
 						<div>
-						<a href="/notice_list"  class="btn svg  p-0" alt="로고"><object  class="d-block logo" type="image/svg+xml" data="img/logo.svg"></object></a>
+						<a href="/TMC/notice_list"  class="btn svg  p-0" alt="로고">
+						<img src="${pageContext.request.contextPath}/img/logo.svg"></a>
 						</div>
 						
-						<div><a href="/mypage"   class="   topmenu_ico"> <i class="xi-profile-o xi-2x xi-x"></i> <span class="d-none d-lg-inline-block d-xl-inline-block">${user_id}</a><!-- 마이페이지 -->
-						 <a href="/logout" class="topmenu_ico t_underline">Log out</a>
+						<div><a href="/TMC/mypage"   class="   topmenu_ico"> <i class="xi-profile-o xi-2x xi-x"></i> <span class="d-none d-lg-inline-block d-xl-inline-block">${suser_id}</a><!-- 마이페이지 -->
+						 <a href="/TMC/logout" class="topmenu_ico t_underline">Log out</a>
 						</div>
 					</div>
 					<div class="container sub_tit01">Inspiration for the future society, <br>

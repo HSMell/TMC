@@ -78,10 +78,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 			.loginPage("/login").permitAll()
 		.and()
 			.logout()
-			.logoutUrl("/logout")
+			.logoutUrl("/TMC/logout")
 			.logoutSuccessUrl("/login")
 			.invalidateHttpSession(true) //세션 삭제  
-			.deleteCookies("loginCookie"); //자동 로그인 쿠키, Tomcat이 발급한 세션 유지 쿠키 삭제       
+			.deleteCookies("loginCookie","JSESSIONID"); //자동 로그인 쿠키, Tomcat이 발급한 세션 유지 쿠키 삭제       
         	
     }
     

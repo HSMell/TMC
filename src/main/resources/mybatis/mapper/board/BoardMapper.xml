@@ -3,139 +3,178 @@
 
 <mapper namespace="com.tmc.comm.dao.IBoardDao">
 
-   <insert id="insertPost">
-      insert into tb_post(post_num, board_num, user_id, post_title, post_content)
-      values (#{post_num}, #{board_num}, #{user_id}, #{post_title}, #{post_content})
-   </insert>
-   
-   <insert id="insertFile">
-      insert into tb_files(file_num, file_path, post_num, save_file_name, original_file_name)
-      values (#{file_num}, #{file_path}, #{post_num}, #{save_file_name}, #{original_file_name})
-   </insert>
-   
-   <select id="getMaxPostNo" resultType="String">
-      select ifnull((select concat('P', lpad(substr(max(post_num), 2, 8) + 1, 7, '0')) from tb_post), 'P0000001') as maxPostNo from dual
-   </select>
+	<insert id="insertPost">
+		insert into tb_post(post_num, board_num, user_id, post_title, post_content)
+		values (#{post_num}, #{board_num}, #{user_id}, #{post_title}, #{post_content})
+	</insert>
+	
+	<insert id="insertFile">
+		insert into tb_files(file_num, file_path, post_num, save_file_name, original_file_name)
+		values (#{file_num}, #{file_path}, #{post_num}, #{save_file_name}, #{original_file_name})
+	</insert>
+	
+	<select id="getMaxPostNo" resultType="String">
+		select ifnull((select concat('P', lpad(substr(max(post_num), 2, 8) + 1, 7, '0')) from tb_post), 'P0000001') as maxPostNo from dual
+	</select>
   
-     <!-- 파일 번호 최댓값 -->
-   <select id="getMaxFileNo" resultType="String">
-      select ifnull((select concat('F', lpad(substr(max(file_num), 2, 8) + 1, 3, '0')) from tb_files where post_num = #{post_num}), 'F001') as maxPostNo from dual
-   </select>
-   
-   <select id="boardList" resultType="com.tmc.comm.dao.BoardDto">
-      select 
-         concat(files.file_path, files.save_file_name) as file_path, 
-         files.save_file_name, 
-         files.original_file_name, 
-         post.post_num as post_num,
+  	<!-- 파일 번호 최댓값 -->
+	<select id="getMaxFileNo" resultType="String">
+		select ifnull((select concat('F', lpad(substr(max(file_num), 2, 8) + 1, 3, '0')) from tb_files where post_num = #{post_num}), 'F001') as maxPostNo from dual
+	</select>
+	
+	<select id="boardList" resultType="com.tmc.comm.dao.BoardDto">
+		select 
+			concat(files.file_path, files.save_file_name) as file_path, 
+			files.save_file_name, 
+			files.original_file_name, 
+			post.post_num as post_num,
             post.post_title as post_title,
             post.update_date as update_date,
             post.user_id as user_id
-      from tb_post as post
-      left join tb_files as files on post.post_num = files.post_num
-      where post.board_num = 'B0000001'
-         and post.is_used = 'Y'
-         order by post_num desc
-   </select>
-   
-   <select id="search" parameterType="com.tmc.comm.dao.BoardDto" resultType="com.tmc.comm.dao.BoardDto">
-      select 
-         concat(files.file_path, files.save_file_name) as file_path, 
-         files.save_file_name, 
-         files.original_file_name, 
-         post.post_num as post_num,
+		from tb_post as post
+		left join tb_files as files on post.post_num = files.post_num
+		where post.board_num = 'B0000001'
+			and post.is_used = 'Y'
+			order by post_num desc
+	</select>
+	
+	<select id="search" parameterType="com.tmc.comm.dao.BoardDto" resultType="com.tmc.comm.dao.BoardDto">
+		select 
+			concat(files.file_path, files.save_file_name) as file_path, 
+			files.save_file_name, 
+			files.original_file_name, 
+			post.post_num as post_num,
             post.post_title as post_title,
             post.update_date as update_date
-      from 
-         tb_post as post
-      left join tb_files as files on post.post_num = files.post_num 
-      where 
-         post_title like concat('%',#{post_title},'%') or post_content like concat('%',#{post_title},'%')
-   </select>
-   
-   <select id="searchcnt" resultType="com.tmc.comm.dao.BoardDto">
-      select count(*) from tb_post where post_title like concat('%',#{post_title},'%') or post_content like concat('%',#{post_title},'%');
-   </select>
-   
-   <select id="boardList2" parameterType="com.tmc.comm.dao.BoardDto" resultType="com.tmc.comm.dao.BoardDto">
-      select 
-         concat(files.file_path, files.save_file_name) as file_path, 
-         files.save_file_name, 
-         files.original_file_name, 
-         post.post_num as post_num,
+		from 
+			tb_post as post
+		left join tb_files as files on post.post_num = files.post_num 
+		where 
+			post_title like concat('%',#{post_title},'%') or post_content like concat('%',#{post_title},'%')
+	</select>
+	
+	<select id="search2" parameterType="com.tmc.comm.dao.BoardDto" resultType="com.tmc.comm.dao.BoardDto">
+		select 
+			concat(files.file_path, files.save_file_name) as file_path, 
+			files.save_file_name, 
+			files.original_file_name, 
+			post.post_num as post_num,
             post.post_title as post_title,
             post.update_date as update_date,
             post.user_id as user_id
-      from 
-         tb_post as post
-      left join tb_files as files on post.post_num = files.post_num
-      where 
-         post.board_num = 'B0000001'
-         and post.is_used = 'Y'
-         order by post_num desc
-      limit
-         #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
-   </select>
-   
-   <select id="boardList3" parameterType="com.tmc.comm.dao.BoardDto" resultType="com.tmc.comm.dao.BoardDto">
-      select 
-         concat(files.file_path, files.save_file_name) as file_path, 
-         files.save_file_name, 
-         files.original_file_name, 
-         post.post_num as post_num,
+		from 
+			tb_post as post
+		left join tb_files as files on post.post_num = files.post_num
+		where 
+			post.board_num = 'B0000001'
+			and post.is_used = 'Y'
+			order by post_num desc
+			post_title like concat('%',#{post_title},'%') or post_content like concat('%',#{post_title},'%')
+		limit
+			#{startIndex}, #{pageSize} 
+	</select>
+	
+	<select id="searchcnt" resultType="com.tmc.comm.dao.BoardDto">
+		select count(*) from tb_post where post_title like concat('%',#{post_title},'%') or post_content like concat('%',#{post_title},'%');
+	</select>
+	
+	<select id="boardList2" parameterType="com.tmc.comm.dao.Pagination" resultType="com.tmc.comm.dao.BoardDto">
+		select 
+			concat(files.file_path, files.save_file_name) as file_path, 
+			files.save_file_name, 
+			files.original_file_name, 
+			post.post_num as post_num,
             post.post_title as post_title,
             post.update_date as update_date,
             post.user_id as user_id
-      from 
-         tb_post as post
-      left join tb_files as files on post.post_num = files.post_num
-      where 
-         post.board_num = 'B0000001'
-         and post.is_used = 'Y'
-         order by post_num desc
-      limit
-         10,10
-   </select>
-   
-   
-   
-   <select id="selectBoardTotalCount" parameterType="com.tmc.comm.dao.BoardDto" resultType="_int">
-      SELECT
-         COUNT(*)
-      FROM
-         tb_post
-      where 
-         is_used="Y"
-   </select>
-   
-   <select id="getPost" resultType="com.tmc.comm.dao.BoardDto">
-      select post_num,post_title,post_content,user_id,update_date from tb_post
-        where post_num = #{post_num}   
-   </select>
-   
-   <update id="deletePost">
-      update tb_post set is_used = "N" where post_num = #{post_num}
-   </update>
-   
-   <delete id="deleteFiles">
-      delete from tb_files where post_num= #{post_num}
-   </delete>
-   
-   <update id="updatePost">
-      update tb_post
-      set post_content=#{post_content},
-      post_title=#{post_title},
-      update_date=sysdate() 
-      where post_num = #{post_num}
-   </update> 
-   
-   <select id="getFileList" resultType="com.tmc.comm.dao.BoardDto">
-       select 
-         file_path, 
-         save_file_name, 
-         original_file_name, 
-         post_num, 
-         file_num from tb_files 
+		from 
+			tb_post as post
+		left join tb_files as files on post.post_num = files.post_num
+		where 
+			post.board_num = 'B0000001'
+			and post.is_used = 'Y'
+			order by post_num desc
+		limit
+			#{paginationInfo.firstRecordIndex}, #{recordsPerPage}
+	</select>
+	
+	<select id="boardList3" parameterType="com.tmc.comm.dao.BoardDto" resultType="com.tmc.comm.dao.BoardDto">
+		select 
+			concat(files.file_path, files.save_file_name) as file_path, 
+			files.save_file_name, 
+			files.original_file_name, 
+			post.post_num as post_num,
+            post.post_title as post_title,
+            post.update_date as update_date,
+            post.user_id as user_id
+		from 
+			tb_post as post
+		left join tb_files as files on post.post_num = files.post_num
+		where 
+			post.board_num = 'B0000001'
+			and post.is_used = 'Y'
+			order by post_num desc
+		limit
+			10,#{recordsPerPage}
+	</select>	
+	
+	<select id="boardList4" parameterType="com.tmc.comm.dao.Pagination" resultType="com.tmc.comm.dao.BoardDto">
+		select 
+			concat(files.file_path, files.save_file_name) as file_path, 
+			files.save_file_name, 
+			files.original_file_name, 
+			post.post_num as post_num,
+            post.post_title as post_title,
+            post.update_date as update_date,
+            post.user_id as user_id
+		from 
+			tb_post as post
+		left join tb_files as files on post.post_num = files.post_num
+		where 
+			post.board_num = 'B0000001'
+			and post.is_used = 'Y'
+			order by post_num desc
+		limit
+			#{startIndex}, #{pageSize} 
+	</select>
+	
+	<select id="selectBoardTotalCount" parameterType="com.tmc.comm.dao.BoardDto" resultType="_int">
+		SELECT
+			COUNT(*)
+		FROM
+			tb_post
+		where 
+			is_used="Y"
+	</select>
+	
+	<select id="getPost" resultType="com.tmc.comm.dao.BoardDto">
+		select post_num,post_title,post_content,user_id,update_date from tb_post
+        where post_num = #{post_num}	
+	</select>
+	
+	<update id="deletePost">
+		update tb_post set is_used = "N" where post_num = #{post_num}
+	</update>
+	
+	<delete id="deleteFiles">
+		delete from tb_files where post_num= #{post_num}
+	</delete>
+	
+	<update id="updatePost">
+		update tb_post
+		set post_content=#{post_content},
+		post_title=#{post_title},
+		update_date=sysdate() 
+		where post_num = #{post_num}
+	</update> 
+	
+	<select id="getFileList" resultType="com.tmc.comm.dao.BoardDto">
+		 select 
+			file_path, 
+			save_file_name, 
+			original_file_name, 
+			post_num, 
+			file_num from tb_files 
         where post_num = #{post_num}
-   </select>
+	</select>
 </mapper>

@@ -25,11 +25,18 @@
 $(document).ready(function(){	
 	$("#btn_detail").on("click", ".media",function(){
 		let re = $(this).attr("data-num");
-		location.href="/notice_view?post_num="+re;			
+		location.href="/TMC/notice_view?post_num="+re;			
 	});
 	
 	$('#writeBtn').click(function(){
-		location.replace('/notice_write')
+		location.replace('/TMC/notice_write')
+	});
+	
+	$('#searchbtn').click(function(){
+		if($("#search_value").val() == ''){
+			alert("내용을 입력해 주세요");
+			return false;
+		}				
 	});
 });
 </script>
@@ -38,11 +45,12 @@ $(document).ready(function(){
 
 					<div class="container px-0 pt-xl-2">
 						<div>
-						<a href="/notice_list"  class="btn svg  p-0" alt="로고"><object  class="d-block logo" type="image/svg+xml" data="img/logo.svg"></object></a>
+						<a href="/TMC/notice_list"  class="btn svg  p-0" alt="로고">
+						<img src="${pageContext.request.contextPath}/img/logo.svg"></a>
 						</div>
 						
-						<div><a href="/mypage"   class="topmenu_ico"> <i class="xi-profile-o xi-2x xi-x"></i> <span class="d-none d-lg-inline-block d-xl-inline-block">${user_id}</a><!-- 마이페이지 -->
-						 <a href="/logout" class="topmenu_ico t_underline">Log out</a>
+						<div><a href="/TMC/mypage"   class="topmenu_ico"> <i class="xi-profile-o xi-2x xi-x"></i> <span class="d-none d-lg-inline-block d-xl-inline-block">${suser_id}</a><!-- 마이페이지 -->
+						 <a href="/TMC/logout" class="topmenu_ico t_underline">Log out</a>
 						</div>
 					</div>
 					<div class="container sub_tit01">Inspiration for the future society, <br>
@@ -53,12 +61,12 @@ creating a new future</div>
 <!-- 본문내용 시작   -->
 <div class="container-lg mt-0  mt-md-5  con_wrap">
 
-<form action="/search" method="GET">
+<form action="/TMC/search" method="GET">
 	<div class="p-3 py-md-4 bg-light text-dark rounded">
 		<div class="input-group input_search">  	
-			<input class="form-control" name="search_value" id="search_value" type="text" placeholder="궁금한 점을 검색해 보세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+			<input class="form-control" name="search_value" id="search_value" type="text" placeholder="궁금한 점을 검색해 보세요" aria-label="Recipient's username" aria-describedby="button-addon2" value="${search_value }">
 			<div class="input-group-append">
-				<button class="btn"><img src="img/ico_search.png" alt="" /></button>
+				<button class="btn" id="searchbtn"><img src="img/ico_search.png" alt="" /></button>
 	  		</div>
 	  	</div>
 	</div>
@@ -119,23 +127,6 @@ creating a new future</div>
 
 
 <!-- 공지사항 끝 -->
-<nav aria-label="Page navigation example ">
-<ul class="pagination justify-content-center mt-4">
-  <li class="page-item">
-  <a class="page-link cgray01" href="#" aria-label="Previous">
-  <span aria-hidden="true">&laquo;</span>
-  </a>
-  </li>
-  <li class="page-item"><a class="page-link text-dark active " href="#">1</a></li>
-  <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
-  <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
-  <li class="page-item">
-  <a class="page-link cgray01" href="#" aria-label="Next">
-  <span aria-hidden="true">&raquo;</span>
-  </a>
-  </li>
-</ul>
-</nav>
 <!-- 본문내용 끝  -->
 
  

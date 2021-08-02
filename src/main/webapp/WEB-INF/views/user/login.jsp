@@ -1,12 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<meta name="description" content="">
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>TMC ·Î±×ÀÎ</title>
+<title>TMC ë¡œê·¸ì¸</title>
 
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
@@ -16,49 +14,49 @@
 
 <link rel="stylesheet" href="css/custom.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-<!-- xe¾ÆÀÌÄÜ -->
+<!-- xeì•„ì´ì½˜ -->
 <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
-<!-- ÆùÆ®  -->
+<!-- í°íŠ¸  -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
 <script type="text/javascript">
 	$(document).ready(function(){		
-		//ÀÌ¸ŞÀÏ À¯È¿¼º °Ë»ç
+		//ì´ë©”ì¼ ìœ íš¨ì„± ê²€ì‚¬
 		var regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 		
 		$("#btn_signIn").on("click", function(){
-			//ÀÌ¸ŞÀÏ ÀÔ·ÂX
+			//ì´ë©”ì¼ ì…ë ¥X
 		if($('#inputname2').val() == ""){
-	          alert("ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇÏÁö ¾Ê¾Ò½À´Ï´Ù");
+	          alert("ì´ë©”ì¼ì„ ì…ë ¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤");
 	          $('#inputname2').focus();
 	          return false;
 	      }
 			
-			//ÀÌ¸ŞÀÏ Çü½Ä
+			//ì´ë©”ì¼ í˜•ì‹
 		if(!regex.test($("#inputname2").val())){
-			alert("ÀÌ¸ŞÀÏ Çü½Ä¿¡ ¸Â°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä")
+			alert("ì´ë©”ì¼ í˜•ì‹ì— ë§ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”")
 			$('#inputname2').val("");
 			$('#inputname2').focus();
 			return false;
 		}
 			
-			//ºñ¹Ğ¹øÈ£ ÀÔ·ÂX
+			//ë¹„ë°€ë²ˆí˜¸ ì…ë ¥X
 		if($('#inputpass2').val() == ""){
-		     alert("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏÁö ¾Ê¾Ò½À´Ï´Ù");
+		     alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤");
 		     $('#inputpass2').focus();
 		     return false;
 		 }
 		});
 		
-		// Å¬¸¯½Ã È¸¿ø°¡ÀÔ
+		// í´ë¦­ì‹œ íšŒì›ê°€ì…
 		$("#btn_signUp").on("click", function(){
-			location.href="/signup";
+			location.href="/TMC/signup";
 		})
-		// Å¬¸¯½Ã ºñ¹Ğ¹øÈ£ Ã£±â
+		// í´ë¦­ì‹œ ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°
 		$("#btn_findpw").on("click", function(){
-			location.href="/findpw";
+			location.href="/TMC/findpw";
 		})	
 		
 	});
@@ -72,12 +70,12 @@
 
 
 
-<form action="/startlogin" method="post">
+<form action="/TMC/startlogin" method="post">
 <div class="con_wrap100">
   <div class="box_wrap" >
     <div class=" py-5 text-center">
-      <p class=" mt-5"><object  class="logo2" type="image/svg+xml" data="./img/logo_c.svg"></object></p>
-      <p class="f-size19 mt-2 f-sizem14"> TMCÈ¨ÆäÀÌÁö ¹æ¹®À» È¯¿µÇÕ´Ï´Ù. </p>
+		<p class=" mt-5"><object class="logo2" type="image/svg+xml" data="${pageContext.request.contextPath}/img/logo_main.svg"></object></p>
+		<p class="f-size19 mt-2 f-sizem14"> TMCí™ˆí˜ì´ì§€ ë°©ë¬¸ì„ í™˜ì˜í•©ë‹ˆë‹¤. </p>
     </div>
     <div class="p-4 login_wrap m-auto">
       <div class="form-group mb-1">
@@ -93,21 +91,21 @@
         <p> 
          <div class="form-check form-check-inline checks">
 			<input type="checkbox" class ="form-check-input" id="inlineRadio1" value="option1" name ="useCookie">
-			<label lass="form-check-label" for="inlineRadio1">·Î±×ÀÎ »óÅÂ À¯Áö</label>
+			<label lass="form-check-label" for="inlineRadio1">ë¡œê·¸ì¸ ìƒíƒœ ìœ ì§€</label>
         </div>
         </p>
         
-        <a href="#" class="ml-auto" id="btn_findpw">ÆĞ½º¿öµå Ã£±â</a>
+        <a href="#" class="ml-auto" id="btn_findpw">íŒ¨ìŠ¤ì›Œë“œ ì°¾ê¸°</a>
       </div>
-      <p class="mt-5 text-center mb-2 ">¾ÆÁ÷ °¡ÀÔµÇÁö ¾ÊÀº È¸¿øÀÔ´Ï±î? <a href="#" class="pup_st ml-2 t_underline" id="btn_signUp">È¸¿ø°¡ÀÔ</a> </p>
+      <p class="mt-5 text-center mb-2 ">ì•„ì§ ê°€ì…ë˜ì§€ ì•Šì€ íšŒì›ì…ë‹ˆê¹Œ? <a href="#" class="pup_st ml-2 t_underline" id="btn_signUp">íšŒì›ê°€ì…</a> </p>
     </div>
   </div>
 </div>
 </form>
-<!-- º»¹®³»¿ë ³¡  -->
+<!-- ë³¸ë¬¸ë‚´ìš© ë  -->
 
 
-<!-- ÇÏ´Ü -->
+<!-- í•˜ë‹¨ -->
 
 </body>
 </html>

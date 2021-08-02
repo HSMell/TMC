@@ -31,7 +31,7 @@
 		var data = {"user_id":user_id};
 		data = JSON.stringify(data);
 		$.ajax({
-			url:"checkId",
+			url:"/TMC/checkId",
 			type:"POST",
 			data:data,
 			dataType:"json",
@@ -79,7 +79,7 @@
 </head>
 <body>
 
-<form action="doSignup" method="post" enctype="multipart/form-data">
+<form action="/TMC/doSignup" method="post" enctype="multipart/form-data">
 <!-- 본문내용 시작   -->
 <div class="con_wrap100">
   <div class="box_wrap" >

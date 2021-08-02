@@ -19,13 +19,6 @@
 	<!-- 폰트  -->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-	$("#logoutBtn").on("click", function(){
-		location.href="/logout";
-	});
-});
-</script>
 </head>
 <body>
 
@@ -33,11 +26,11 @@ $(document).ready(function(){
 
 					<div class="container px-0 pt-xl-2">
 						<div>
-						<a href="/notice_list"  class="btn svg  p-0" alt="로고"><object  class="d-block logo" type="image/svg+xml" data="img/logo.svg"></object></a>
+						<a href="/TMC/notice_list"  class="btn svg  p-0" alt="로고"><object  class="d-block logo" type="image/svg+xml" data="img/logo.svg"></object></a>
 						</div>
 						
-						<div><a href="/mypage"   class="   topmenu_ico"> <i class="xi-profile-o xi-2x xi-x"></i> <span class="d-none d-lg-inline-block d-xl-inline-block">${user_id}</a><!-- 마이페이지 -->
-						 <a href="#" class="topmenu_ico t_underline" id="logoutBtn">Log out</a>
+						<div><a href="/TMC/mypage"   class="   topmenu_ico"> <i class="xi-profile-o xi-2x xi-x"></i> <span class="d-none d-lg-inline-block d-xl-inline-block">${user_id}</a><!-- 마이페이지 -->
+						 <a href="/TMC/logout" class="topmenu_ico t_underline" id="logoutBtn">Log out</a>
 						</div>
 					</div>
 					<div class="container sub_tit01">Inspiration for the future society, <br>

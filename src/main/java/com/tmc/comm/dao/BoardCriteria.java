@@ -25,7 +25,7 @@ public class BoardCriteria {
 
 	public BoardCriteria() {
 		this.currentPageNo = 1;
-		this.recordsPerPage = 5;
+		this.recordsPerPage = 10;
 		this.pageSize = 10;
 	}
 
